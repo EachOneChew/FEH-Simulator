@@ -14,15 +14,15 @@ Upon starting a game, the MatchMaster takes information from the user(s) in orde
     
 The MatchMaster tracks the turn counter and ends the match upon the turn limit being reached (if there is one), or a certain amount of unit loss has occurred depending on mode (GHBs end with 1 user unit loss, whereas Arena matches do not end until all units on a team are lost).
     
-Once the MatchMaster starts a phase (there are 2 phases a turn), it passes all relevant state information of the map and units to TurnPhaseHandler, which is now responsible for taking in player input and executing the appropriate actions.
+Once the MatchMaster starts a phase (there are 2 phases a turn), it passes all relevant state information of the map and units to PhaseHandler, which is now responsible for taking in player input and executing the appropriate actions.
 
-### TurnPhaseHandler
+### PhaseHandler
 
-Technically speaking, TurnPhaseHandler handles "half" a FEH turn each time - it counts a player phase as one turn, and an enemy phase as another turn. A new TurnPhaseHandler is created for each phase and is useless once a phase terminates.
+Technically speaking, PhaseHandler handles "half" a FEH turn each time - it counts a player phase as one turn, and an enemy phase as another turn. A new PhaseHandler is created for each phase and is useless once a phase terminates.
 
-The TurnPhaseHandler is responsible for applying start-of-turn effects, expiring buffs, and other turn-related operations. It then calls a method that loops and repeatedly calls a takeAction() method in the Player class to allow player input until a player is out of actions, at which point it ends the turn and returns.
+The PhaseHandler is responsible for applying start-of-turn effects, expiring buffs, and other turn-related operations. It then calls a method that loops and repeatedly calls a takeAction() method in the Player class to allow player input until a player is out of actions, at which point it ends the turn and returns.
     
-Every time a player input is taken in, the Player class processes the input into a command, and passes it to TurnPhaseHandler, which calls the appropriate InteractionHandler to process and carry it out. The InteractionHandler is responsible for matters such as expiring debuffs that only last through a unit's next action.
+Every time a player input is taken in, the Player class processes the input into a command, and passes it to PhaseHandler, which calls the appropriate InteractionHandler to process and carry it out. The InteractionHandler is responsible for matters such as expiring debuffs that only last through a unit's next action.
 
 ### InteractionHandler
   
@@ -34,7 +34,7 @@ For more information on how Skills work with functional interfaces, see the Skil
   
 ### Player
   
-A Player is either a User or an AI. The Player class contains mostly functionality, such as methods that take in, process, and return user input as commands. The AI class extending Player will have <SHIT TONS OF DECISION MAKING CODE THAT'S SURE TO BE FUN>. At the core, however, a User object and an AI object will interact with TurnPhaseHandler through the same methods - only what goes on in the background to determine what commands are output by the Player object is different.
+A Player is either a User or an AI. The Player class contains mostly functionality, such as methods that take in, process, and return user input as commands. The AI class extending Player will have <SHIT TONS OF DECISION MAKING CODE THAT'S SURE TO BE FUN>. At the core, however, a User object and an AI object will interact with PhaseHandler through the same methods - only what goes on in the background to determine what commands are output by the Player object is different.
     
 
 ## Game Mechanics Classes
