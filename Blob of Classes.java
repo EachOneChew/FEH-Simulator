@@ -5,10 +5,10 @@
 
 // barebones outline of how a match will go:
 // pre: MatchMaster takes input from players and sets up units as well as the map
-// 1. MatchMaster handles the turn alternation and calling of TurnPhaseHandler on Player objects
-//    all state information such as Map and the UnitLocationPair list is passed to TurnPhaseHandler
+// 1. MatchMaster handles the turn alternation and calling of PhaseHandler on Player objects
+//    all state information such as Map and the UnitLocationPair list is passed to PhaseHandler
 //    MatchMaster will apply start of turn buffs / effects, expire buffs at the end of a turn cycle, etc.
-// 2. TurnPhaseHandler takes input from the players, either moving units or calling InteractionHandler when needed
+// 2. PhaseHandler takes input from the players, either moving units or calling InteractionHandler when needed
 //    all state information is passed down to InteractionHandler as well if invoked
 // 3. InteractionHandler calculates combat results, applies external-affecting skill effects, etc.
 //    Depending on the type of Skill class involved, InteractionHandler will pass relevant info to the Skill to apply effects
@@ -22,16 +22,16 @@
 // - hold a list containing the units / their locations of each player stored as {Unit unit, int[2] location} pairs
 // - know what's going on with debuffs and drives
 // - execute the turns actions of each player, invoking the AI class if the match is PlayervComputer
-//   does this by delegating to TurnPhaseHandler
+//   does this by delegating to PhaseHandler
 public class MatchMaster {
   private List<UnitLocationPair> p1UnitInfo;
   private List<UnitLocationPair> p2UnitInfo;
   private Tile[][] map;
 }
 
-// ~~TurnPhaseHandler~~
+// ~~PhaseHandler~~
 // not sure if this will be used yet; depends on how ridiculously crowded MatchMaster gets
-public class TurnInputHandler {
+public class PhaseHandler {
   
 }
 
