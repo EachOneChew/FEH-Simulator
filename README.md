@@ -2,7 +2,7 @@
 
 Here you will find plans of class organization and rudimentary outlines for how to implement game functionalities. There are plans to use Swing & WebSwing in the future in order to build this simulator into a full fledged app (perhaps even hosted on the web), but that will come once the code is working.
 
-TODO NEXT: figure out how to actually identify the drives / in-combat effects a unit is under when CombatInteractionHandler simulates a round of combat.
+*Tentative idea for implementing drive effects: Have Skill objects tag themselves as having external effects. CombatInteractionHandler can then loop through the units with skills marked as having external effects, and apply those effects if their conditions are met. This SHOULD work as skills can independently carry out their effects by way of their function (see Skill section).*
 
 ## Core Classes
 
@@ -14,7 +14,7 @@ Upon starting a game, the MatchMaster takes information from the user(s) in orde
     
 The MatchMaster tracks the turn counter and ends the match upon the turn limit being reached (if there is one), or a certain amount of unit loss has occurred depending on mode (GHBs end with 1 user unit loss, whereas Arena matches do not end until all units on a team are lost).
     
-Once the MatchMaster starts a phase (there are 2 phases a turn), it passes all relevant state information of the map and units to PhaseHandler, which is now responsible for taking in player input and executing the appropriate actions.
+Once the MatchMaster starts a phase (there are 2 phases a turn), it passes all relevant state information of the map and units to Phase, which is now responsible for taking in player input and executing the appropriate actions.
 
 ### PhaseHandler
 
@@ -51,7 +51,7 @@ A Tile is the same as a tile on the FEH map and contains the same information: t
   
 A Unit is, at it's simplest, is just a container for information and has no real functionality. It is other methods that are accessing a unit's information, and doing things with that. A Unit object stores stat-related information in arrays where indices have predefined meaning (e.g. 0 = hp, 1 = atk, 2 = spd, etc.), skill information as an array of Skill objects, and state information.
 
-State information is slightly more complicated. Buffs must be stored together with their remaining duration, whereas debuffs expire after any action, and so do not need to store duration information. Special charge can simply be stored as an int.
+State information is slightly more complicated. Visible buffs must be stored together with their remaining duration (in-combat buffs are calculated for each combat by CombatInteractionHandler), whereas debuffs expire after any action, and so do not need to store duration information. Special charge can simply be stored as an int.
 
 Units also need to know who their support partner is. Support info is stored in the form of {int[2] identifier, String rank} pairs. A unit's identifier has the format of {owner, slot} (for example, {1, 4} would indicate the 4th unit of player 1). For simplicity, this pair will just be an integer array of length 4: {player, slot, row, column}. Summoner support rank is taken into account of BEFORE the match starts, and the stat buffs are loaded into the unit's base stats.
   
