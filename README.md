@@ -71,9 +71,17 @@ Function printsInput = (int x) -> { System.out.println(x); };
 printsInput.doSomething(5); // prints 5
 ```
   
-In the case of our skills, Condition and Effect functions will take in tuples containing variable amounts of things as their parameters. If a skill activation condition involves checking a unit's stats only, for instance, the the activationCondition function would take in a tuple containing only the Unit object to check its stats. If it were a Solo skill, however, activationCondition's tuple would have a List<UnitLocationPair>. Effect functions work similarly.
+For our skills, each skill function will extend either SkillCondition<T> or SkillEffect<T>. They will always take in one type of parameter and one type only (such as a unit's current hp, a unit's current visible buffs, or the board in order to calculate whether there's an ally within 2 tiles). Skill functions will identify their own type by a enum type field, and provide that type with a default method getType().
 
-Skills will need to contain some type of identification to let InteractionHandlers know what to give it's Condition and Effect functions.
+Example of a function extending SkillCondition<T>:
+
+```Java
+interface CurrentHPSkillCondition extends SkillCondition<Integer> { // ... }
+```
+ 
+Note that, as various different skill conditions functions will be stored in the same SkillCondition or SkillEffect List, it is necessary for functions to provide their type through a default function that will be associated with the **instance** of each function. Otherwise, if the types were simply stored as and retrieved as fields, the type field would be associated with the interface instead of the instance. As we are storing different types of functions inside the same SkillCondition or SkillEffect list, information associated with and only with the interface would be lost as each instance is converted into their super interface when being stored in the List.
+
+Tl;Dr have each function instance provide their type through a function linked to their specific instance so they don't forget what type they are when being converted into their super interface.
   
 Other details about skills are ezpz so those can be figured out later.
 
