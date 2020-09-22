@@ -2,9 +2,9 @@
 
 Here you will find plans of class organization and rudimentary outlines for how to implement game functionalities. There are plans to use Swing & WebSwing in the future in order to build this simulator into a full fledged app (perhaps even hosted on the web), but that will come once the code is working.
 
-*Tentative idea for implementing drive effects: Have Skill objects tag themselves as having external effects. CombatInteractionHandler can then loop through the units with skills marked as having external effects, and apply those effects if their conditions are met. This SHOULD work as skills can independently carry out their effects by way of their function (see Skill section).*
+*Tentative idea for implementing drive effects: Have Skill objects tag themselves as having external effects. CombatInteractionHandler can then loop through the units with skills marked as having external effects, and apply those effects if their conditions are met. This SHOULD work as skills can independently carry out their effects see Skill section).*
 
-The classes relating to pathfinding and target prioritization have already been completed and can be found [here](https://github.com/EachOneChew/Dijkstra-s-Algorithm-FEH).
+**The classes relating to pathfinding and target prioritization have already been completed and can be found [here](https://github.com/EachOneChew/Dijkstra-s-Al gorithm-FEH).**
 
 ## Core Classes
 
