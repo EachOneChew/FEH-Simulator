@@ -4,6 +4,8 @@ Here you will find plans of class organization and rudimentary outlines for how 
 
 *Tentative idea for implementing drive effects: Have Skill objects tag themselves as having external effects. CombatInteractionHandler can then loop through the units with skills marked as having external effects, and apply those effects if their conditions are met. This SHOULD work as skills can independently carry out their effects by way of their function (see Skill section).*
 
+The classes relating to pathfinding and target prioritization have already been completed and can be found [here](https://github.com/EachOneChew/Dijkstra-s-Algorithm-FEH).
+
 ## Core Classes
 
 ### MatchMaster
